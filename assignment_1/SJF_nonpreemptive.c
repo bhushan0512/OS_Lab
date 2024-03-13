@@ -1,7 +1,8 @@
 #include <stdio.h>
 
-void main() {
-    int bt[10] = {0}, at[10] = {0}, tat[10] = {0}, wt[10] = {0}, ct[10] = {0},remaining_burst[10];
+void main()
+{
+    int bt[10] = {0}, at[10] = {0}, tat[10] = {0}, wt[10] = {0}, ct[10] = {0}, remaining_burst[10];
     int n, time = 0, smallest, count = 0;
     float totalTAT = 0, totalWT = 0;
 
@@ -10,7 +11,7 @@ void main() {
 
     printf("Enter arrival time and burst time for each process\n\n");
 
-    for(int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++){
 
         printf("Arrival time of process[%d] ", i + 1);
         scanf("%d", &at[i]);
@@ -22,20 +23,20 @@ void main() {
         printf("\n");
     }
 
-    while (count < n) {
+    while (count < n){
         smallest = -1;
 
-        for (int i = 0; i < n; i++) {
-            if (at[i] <= time && remaining_burst[i] > 0) {
-                if (smallest == -1 || remaining_burst[i] < remaining_burst[smallest]) {
+        for (int i = 0; i < n; i++)
+        {
+            if (at[i] <= time && remaining_burst[i] > 0)
+                if (smallest == -1 || remaining_burst[i] < remaining_burst[smallest])
                     smallest = i;
-                }
-            }
         }
 
-        if (smallest == -1) {
+        if (smallest == -1)
             time++;
-        } else {
+        else
+        {
             time += bt[smallest];
             ct[smallest] = time;
             tat[smallest] = ct[smallest] - at[smallest];
@@ -52,10 +53,8 @@ void main() {
     printf("Solution: \n\n");
     printf("P#\t AT\t BT\t CT\t TAT\t WT\t\n\n");
 
-    for (int i = 0; i < n; i++) {
-        printf("P%d\t %d\t %d\t %d\t %d\t %d\n", i+1, at[i], bt[i], ct[i], tat[i], wt[i]);
-    }
-
-    printf("\n\nAverage Turnaround Time = %f\n", totalTAT / n);
-    printf("Average WT = %f\n\n", totalWT / n);
+    for (int i = 0; i < n; i++)
+        printf("P%d\t %d\t %d\t %d\t %d\t %d\n", i + 1, at[i], bt[i], ct[i], tat[i], wt[i]);
+    printf("\n\nAverage Turnaround Time = %.2f\n", totalTAT / n);
+    printf("Average WT = %.2f\n\n", totalWT / n);
 }
