@@ -72,5 +72,5 @@ int main() {
     }
 
     printf("\n\nAverage Turnaround Time = %f\n", totalTAT / n);
-    printf("Average WT = %f\n\n", totalWT / n);
+    printf("Average Waiting Time = %f\n\n", totalWT / n);
 }
