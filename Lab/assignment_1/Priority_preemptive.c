@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void main() {
+int main() {
     int bt[10] = {0}, at[10] = {0}, priority[10] = {0}, tat[10] = {0}, wt[10] = {0}, ct[10] = {0}, remaining_burst[10];
     int n, time = 0, highest_priority, count = 0, current_process = -1;
     float totalTAT = 0, totalWT = 0;
