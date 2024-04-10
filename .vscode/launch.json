@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/admin-mca/Documents/bhushan/OS_Lab/testing",
-      "program": "/home/admin-mca/Documents/bhushan/OS_Lab/testing/build/Debug/outDebug",
+      "cwd": "/home/admin-mca/Documents/OS_Lab/Lab/assignment_1",
+      "program": "/home/admin-mca/Documents/OS_Lab/Lab/assignment_1/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
