@@ -2,7 +2,7 @@
 
 void main()
 {
-    int n, m, i, j, k, alloc[5][3], max[5][3], avail[3];
+    int n, m, i, j, k, alloc[50][30], max[50][30], avail[30];
 
     printf("Enter the number of processes: ");
     scanf("%d", &n);
@@ -13,6 +13,7 @@ void main()
     printf("Enter the values for allocation:\n");
     for (i = 0; i < n; i++)
     {
+        printf("Allocation values for P[%d]:", i);
         for (j = 0; j < m; j++)
         {
             scanf("%d", &alloc[i][j]);
@@ -22,6 +23,7 @@ void main()
     printf("Enter the values for max:\n");
     for (i = 0; i < n; i++)
     {
+        printf("Max values for P[%d]:", i);
         for (j = 0; j < m; j++)
         {
             scanf("%d", &max[i][j]);
@@ -94,6 +96,6 @@ void main()
         printf("Following is the SAFE Sequence\n");
         for (i = 0; i < n - 1; i++)
             printf(" P%d ->", ans[i]);
-        printf(" P%d", ans[n - 1]);
+        printf(" P%d\n", ans[n - 1]);
     }
 }
