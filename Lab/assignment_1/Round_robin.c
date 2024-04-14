@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void main() {
+int main() {
     int bt[10] = {0}, tat[10] = {0}, wt[10] = {0}, ct[10] = {0}, process_no[10];
     int n, time_quantum, remaining_burst[10];
     float totalTAT = 0, totalWT = 0;
