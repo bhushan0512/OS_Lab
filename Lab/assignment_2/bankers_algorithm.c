@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-void main()
+int main()
 {
     int n, m, i, j, k, alloc[50][30], max[50][30], avail[30];
 
