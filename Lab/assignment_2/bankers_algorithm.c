@@ -3,13 +3,14 @@
 int main()
 {
     int n, m, i, j, k, alloc[50][30], max[50][30], avail[30];
-
+    
+    // Getting process and resource count
     printf("Enter the number of processes: ");
     scanf("%d", &n);
-
     printf("Enter the number of resources: ");
     scanf("%d", &m);
-
+    
+    // Getting values for allocation for all the processes
     printf("Enter the values for allocation:\n");
     for (i = 0; i < n; i++)
     {
@@ -20,6 +21,7 @@ int main()
         }
     }
 
+    // Getting values for max for all the processes
     printf("Enter the values for max:\n");
     for (i = 0; i < n; i++)
     {
@@ -30,6 +32,7 @@ int main()
         }
     }
 
+    // Getting values for available
     printf("Enter the values for available:\n");
     for (j = 0; j < m; j++)
     {
@@ -54,11 +57,11 @@ int main()
     {
         for (i = 0; i < n; i++)
         {
-
             if (f[i] == 0)
             {
                 int flag = 0;
 
+                // Checking if the process can be allocated
                 for (j = 0; j < m; j++)
                 {
                     if (need[i][j] > avail[j])
@@ -70,8 +73,10 @@ int main()
 
                 if (flag == 0)
                 {
+                    // Process can be allocated
                     ans[ind++] = i;
 
+                    // Updating available resources
                     for (y = 0; y < m; y++)
                         avail[y] += alloc[i][y];
                     f[i] = 1;
@@ -79,7 +84,7 @@ int main()
             }
         }
     }
-
+    //To check if the System is safe or not
     int flag = 1;
     for (int i = 0; i < n; i++)
     {
@@ -94,6 +99,8 @@ int main()
     if (flag == 1)
     {
         printf("Following is the SAFE Sequence\n");
+
+        // Printing the safe sequence
         for (i = 0; i < n - 1; i++)
             printf(" P%d ->", ans[i]);
         printf(" P%d\n", ans[n - 1]);
