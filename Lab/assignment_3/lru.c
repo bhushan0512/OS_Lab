@@ -12,7 +12,7 @@ bool isInMemory(int page, int memory[], int n) {
 
 void displayMemory(int memory[], int n) {
     for (int i = 0; i < n; i++) {
-        printf("%d ", memory[i]);
+        memory[i]!=-1?printf("%d ", memory[i]):printf("_ ");
     }
     printf("\n");
 }
