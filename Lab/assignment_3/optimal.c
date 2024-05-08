@@ -1,76 +1,75 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-// Function to check if a page exists in memory
-bool pageExists(int page, int frames[], int frameSize) {
-    for (int i = 0; i < frameSize; i++) {
-        if (frames[i] == page) {
+bool isInMemory(int page, int memory[], int n) {
+    for (int i = 0; i < n; i++) {
+        if (memory[i] == page) {
             return true;
         }
     }
     return false;
 }
 
-// Function to find the optimal page to replace
-int findOptimal(int pages[], int pageIndices[], int frames[], int frameSize, int currentIndex, int numPages) {
-    int farthest = currentIndex;
-    int replaceIndex = -1;
-    for (int i = 0; i < frameSize; i++) {
+void displayMemory(int memory[], int n) {
+    for (int i = 0; i < n; i++) {
+        memory[i]!=-1?printf("%d ", memory[i]):printf("_ ");
+    }
+    printf("\n");
+}
+
+int findOptimal(int pages[], int memory[], int n, int maxFrames, int start) {
+    int index = -1, farthest = start;
+    for (int i = 0; i < maxFrames; i++) {
         int j;
-        for (j = currentIndex + 1; j < numPages; j++) {
-            if (frames[i] == pages[j]) {
+        for (j = start; j < n; j++) {
+            if (memory[i] == pages[j]) {
                 if (j > farthest) {
                     farthest = j;
-                    replaceIndex = i;
+                    index = i;
                 }
                 break;
             }
         }
-        // If a page will not be used in the future, return it
-        if (j == numPages) {
+        if (j == n) {
             return i;
         }
     }
-    return (replaceIndex == -1) ? 0 : replaceIndex;
+    return (index == -1) ? 0 : index;
 }
 
 int main() {
-    int numPages, frameSize, numFaults = 0;
-    printf("Enter the number of pages: ");
-    scanf("%d", &numPages);
-    
-    int pages[numPages];
-    printf("Enter the page reference string: ");
-    for (int i = 0; i < numPages; i++) {
+    int n;
+    printf("Enter number of pages: ");
+    scanf("%d", &n);
+
+    int pages[n];
+    printf("Enter the pages: ");
+    for (int i = 0; i < n; i++) {
         scanf("%d", &pages[i]);
     }
 
-    printf("Enter the number of frames: ");
-    scanf("%d", &frameSize);
+    int maxFrames;
+    printf("Enter number of frames: ");
+    scanf("%d", &maxFrames);
 
-    int frames[frameSize];
-    for (int i = 0; i < frameSize; i++) {
-        frames[i] = -1; // Initialize all frames to -1 (indicating empty)
+    int memory[maxFrames];
+    int faults = 0;
+
+    for (int i = 0; i < maxFrames; i++) {
+        memory[i] = -1;
     }
 
-    // Simulating page replacement
-    for (int i = 0; i < numPages; i++) {
-        printf("\nReference to page %d: ", pages[i]);
-        if (!pageExists(pages[i], frames, frameSize)) {
-            int replaceIndex = findOptimal(pages, pages, frames, frameSize, i, numPages);
-            frames[replaceIndex] = pages[i];
-            numFaults++;
-            printf("Page fault occurred");
-        } else {
-            printf("No page fault occurred");
+    for (int i = 0; i < n; i++) {
+        printf("Page: %d, Memory: ", pages[i]);
+        if (!isInMemory(pages[i], memory, maxFrames)) {
+            faults++;
+            int pos = findOptimal(pages, memory, n, maxFrames, i + 1);
+            memory[pos] = pages[i];
         }
-        printf("\nCurrent frames: ");
-        for (int j = 0; j < frameSize; j++) {
-            printf("%d ", frames[j]);
-        }
+        displayMemory(memory, maxFrames);
     }
 
-    printf("\n\nTotal page faults: %d\n", numFaults);
+    printf("Total Page Faults: %d\n", faults);
 
     return 0;
 }

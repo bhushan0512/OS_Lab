@@ -1,63 +1,56 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <stdbool.h>
 
-#define MAX_FRAMES 3 // Maximum number of frames in the memory
-
-void printFrames(int frames[], int n) {
+bool isInMemory(int page, int memory[], int n) {
     for (int i = 0; i < n; i++) {
-        if (frames[i] == -1) {
-            printf(" - ");
-        } else {
-            printf(" %d ", frames[i]);
-        }
-    }
-    printf("\n");
-}
-
-bool isInMemory(int frames[], int n, int page) {
-    for (int i = 0; i < n; i++) {
-        if (frames[i] == page) {
+        if (memory[i] == page) {
             return true;
         }
     }
     return false;
 }
 
+void displayMemory(int memory[], int n) {
+    for (int i = 0; i < n; i++) {
+        memory[i]!=-1?printf("%d ", memory[i]):printf("_ ");
+    }
+    printf("\n");
+}
+
 int main() {
-    int pages[] = {1, 2, 3, 4, 5, 6, 1, 2, 7, 8}; // Reference string
-    int n = sizeof(pages) / sizeof(pages[0]);
-    int frames[MAX_FRAMES];
+    int n;
+    printf("Enter number of pages: ");
+    scanf("%d", &n);
+
+    int pages[n];
+    printf("Enter the pages: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &pages[i]);
+    }
+
+    int maxFrames;
+    printf("Enter number of frames: ");
+    scanf("%d", &maxFrames);
+
+    int memory[maxFrames];
+    int faults = 0;
     int frameIndex = 0;
-    int pageFaults = 0;
 
-    // Initialize frames with -1 to indicate empty frames
-    for (int i = 0; i < MAX_FRAMES; i++) {
-        frames[i] = -1;
+    for (int i = 0; i < maxFrames; i++) {
+        memory[i] = -1;
     }
 
-    printf("Page reference string: ");
     for (int i = 0; i < n; i++) {
-        printf("%d ", pages[i]);
-    }
-    printf("\n\n");
-
-    printf("Page Faults\tFrames\n");
-    printf("----------------------------\n");
-
-    for (int i = 0; i < n; i++) {
-        printf("%d\t\t", pageFaults);
-
-        if (!isInMemory(frames, MAX_FRAMES, pages[i])) {
-            frames[frameIndex] = pages[i];
-            frameIndex = (frameIndex + 1) % MAX_FRAMES;
-            pageFaults++;
+        printf("Page: %d, Memory: ", pages[i]);
+        if (!isInMemory(pages[i], memory, maxFrames)) {
+            faults++;
+            memory[frameIndex] = pages[i];
+            frameIndex = (frameIndex + 1) % maxFrames;
         }
-
-        printFrames(frames, MAX_FRAMES);
+        displayMemory(memory, maxFrames);
     }
 
-    printf("\nTotal Page Faults: %d\n", pageFaults);
+    printf("Total Page Faults: %d\n", faults);
 
     return 0;
 }
