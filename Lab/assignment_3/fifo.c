@@ -18,15 +18,17 @@ void displayMemory(int memory[], int n) {
 }
 
 int main() {
-    int n;
-    printf("Enter number of pages: ");
+    int n=20;
+    /* printf("Enter number of pages: ");
     scanf("%d", &n);
 
-    int pages[n];
-    printf("Enter the pages: ");
+    int pages[n]; */
+    /* printf("Enter the pages: ");
     for (int i = 0; i < n; i++) {
         scanf("%d", &pages[i]);
-    }
+    } */
+    int pages[] = {7,0,1,2,0,3,0,4,2,3,0,3,2,1,2,0,1,7,0,1};
+
 
     int maxFrames;
     printf("Enter number of frames: ");
